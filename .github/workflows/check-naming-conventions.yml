@@ -45,11 +45,11 @@ jobs:
 
             # Validate the message pattern
             if ! [[ $commit =~ $pattern ]]; then
-              echo "Invalid commit: \"$commit\"""
+              echo "Invalid commit: \"$commit\""
               echo "Use format: feature/123: Add some feature"
               exit 1
             fi
 
-            #echo "\"$commit\" commit message passed"
+            echo "\"$commit\" commit message passed"
 
           done
