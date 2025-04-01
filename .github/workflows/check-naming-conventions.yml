@@ -30,7 +30,7 @@ jobs:
       - name: Validate commits messages
         run: |
           # Get commits specific to the PR branch
-          commits=$(git log --format=%s origin/${{ github.head_ref }}..HEAD)
+          commits=$(git log --format=%s ${{ github.head_ref }})
 
           echo "Checking commits"
 
@@ -49,4 +49,7 @@ jobs:
               echo "Use format: feature/123: Add some feature"
               exit 1
             fi
+
+            echo "\"$commit\" commit message passed"
+
           done <<< "$commits"
