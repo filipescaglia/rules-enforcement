@@ -30,7 +30,7 @@ jobs:
       - name: Validate commits messages
         run: |
           # Get commits specific to the PR branch
-          commits=$(git log --format=%s ${{ github.head_ref }})
+          commits=$(git log --format=%s)
 
           echo "Checking commits"
 
