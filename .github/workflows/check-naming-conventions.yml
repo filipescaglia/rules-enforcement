@@ -50,6 +50,6 @@ jobs:
               exit 1
             fi
 
-            echo "\"$commit\" commit message passed"
+            #echo "\"$commit\" commit message passed"
 
-          done <<< "$commits"
+          done
