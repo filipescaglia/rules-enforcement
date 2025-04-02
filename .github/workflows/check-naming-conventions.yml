@@ -44,24 +44,26 @@ jobs:
 
           pattern="^(feature|hotfix|fix|chore|issue)\/[0-9]+: "
 
-          # DEBUG
-          #echo "Commits retrieved: "
-          #echo "$commits"
+          invalid_commits=()
 
           while read -r commit; do
-            # Check if the commit is a merge commit
-            if [[ "$commit" == "Merge pull request"* ]]; then
-              echo "Skipping merge commit: \"$commit\""
-              continue
-            fi
-
             # Validate the message pattern
             if ! [[ $commit =~ $pattern ]]; then
               echo "Invalid commit: \"$commit\""
-              echo "Use format: feature/123: Add some feature"
-              exit 1
+              invalid_commits+=("$commit")
+            else
+              echo "\"$commit\" commit message passed"
             fi
 
-            echo "\"$commit\" commit message passed"
-
           done <<< "$commits"
+
+          if [[ ${#invalid_commits[@]} -gt 0 ]]; then
+            echo -e "\n The following commits are invalid:"
+            for invalid in "${invalid_commits[@]}"; do
+              echo "$invalid"
+            done
+
+            echo "Use format: feature/123: Add some feature"
+            exit 1
+            
+          fi
