@@ -29,16 +29,10 @@ jobs:
 
       - name: Validate commits messages
         run: |
-          set -x # Debug
-
           # Get commits specific to the PR branch
-          #commits=$(git log --format=%s) try 1
-
           git fetch --prune --unshallow || git fetch --all
-          
-          #commits=$(git log --format=%s origin/${{ github.head_ref }}..HEAD) try 2
 
-          commits=$(git log --no-merges --format=%s origin/${{ github.base_ref }}..origin/${{ github.head_ref }}) #WORKED!!!
+          commits=$(git log --no-merges --format=%s origin/${{ github.base_ref }}..origin/${{ github.head_ref }})
           
           echo "Checking commits"
 
@@ -65,5 +59,4 @@ jobs:
 
             echo "Use format: feature/123: Add some feature"
             exit 1
-            
           fi
