@@ -32,11 +32,13 @@ jobs:
           set -x # Debug
 
           # Get commits specific to the PR branch
-          #commits=$(git log --format=%s)
+          #commits=$(git log --format=%s) try 1
 
           git fetch --prune --unshallow || git fetch --all
           
-          commits=$(git log --format=%s origin/${{ github.head_ref }}..HEAD)
+          #commits=$(git log --format=%s origin/${{ github.head_ref }}..HEAD) try 2
+
+          commits=$(git log --no-merges --format=%s origin/${{ github.base_ref }}..origin/${{ github.head_ref }})
           
           echo "Checking commits"
 
