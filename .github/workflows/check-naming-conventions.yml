@@ -43,16 +43,16 @@ jobs:
           while read -r commit; do
             # Validate the message pattern
             if ! [[ $commit =~ $pattern ]]; then
-              echo "Invalid commit: \"$commit\""
+              echo "\"$commit\" invalid commit message"
               invalid_commits+=("$commit")
             else
-              echo "\"$commit\" commit message passed"
+              echo "\"$commit\" commit message ok"
             fi
 
           done <<< "$commits"
 
           if [[ ${#invalid_commits[@]} -gt 0 ]]; then
-            echo -e "\n The following commits are invalid:"
+            echo -e "\nThe following commits are invalid:"
             for invalid in "${invalid_commits[@]}"; do
               echo "$invalid"
             done
