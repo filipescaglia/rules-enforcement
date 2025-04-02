@@ -29,9 +29,15 @@ jobs:
 
       - name: Validate commits messages
         run: |
-          # Get commits specific to the PR branch
-          commits=$(git log --format=%s)
+          set -x # Debug
 
+          # Get commits specific to the PR branch
+          #commits=$(git log --format=%s)
+
+          git fetch --unshallow || git fetch --all
+          
+          commits=$(git rev-list --no-merges --format=%s origin/${{ github.head_ref }}..HEAD)
+          
           echo "Checking commits"
 
           pattern="^(feature|hotfix|fix|chore|issue)\/[0-9]+: "
